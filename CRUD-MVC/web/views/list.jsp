@@ -1,3 +1,7 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="Entity.Persona"%>
+<%@page import="EntityDAO.PersonaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,13 +21,25 @@
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
+                <%
+                    PersonaDAO dao = new PersonaDAO();
+                    List<Persona>list=dao.listar();
+                    Iterator<Persona>iter=list.iterator();
+                    Persona per = null;
+                    while(iter.hasNext()){
+                        per=iter.next();
+                %>
                 <tbody>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><%= per.getCodigo() %></td>
+                        <td><%= per.getNombre() %></td>
+                        <td><%= per.getDocumento() %></td>
+                        <td>
+                            <a>Editar</a>
+                            <a>Remover</a>
+                        </td>
                     </tr>
+                    <%}%>
                 </tbody>
             </table>
         </div>
