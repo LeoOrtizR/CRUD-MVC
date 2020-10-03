@@ -5,6 +5,10 @@ public class Persona {
     private String nombre;
     private String documento;
 
+    public Persona(){
+    
+    }
+    
     public Persona(int codigo, String nombre, String documento) {
         this.codigo = codigo;
         this.nombre = nombre;
