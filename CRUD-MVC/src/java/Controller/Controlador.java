@@ -1,5 +1,7 @@
 package Controller;
 
+import Entity.Persona;
+import EntityDAO.PersonaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +14,9 @@ public class Controlador extends HttpServlet {
     String list="views/list.jsp";
     String edit="views/edit.jsp";
     String delete="views/delete.jsp";
+    String add="views/create.jsp";
+    Persona persona = new Persona();
+    PersonaDAO dao = new PersonaDAO();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,8 +41,17 @@ public class Controlador extends HttpServlet {
         
         String acceso="";
         String action=request.getParameter("accion");
-        if(action.equalsIgnoreCase("listar")){
+        if(action.equalsIgnoreCase("list")){
             acceso = list;
+        }else if(action.equalsIgnoreCase("create")){
+            acceso = add;
+        }else if(action.equalsIgnoreCase("Agregar")){
+            String nombre = (String) request.getParameter("txtNombre");
+            String documento = (String) request.getParameter("txtDocumento");
+            persona.setDocumento(documento);
+            persona.setNombre(nombre);
+            dao.add(persona);
+            acceso=list;
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);
